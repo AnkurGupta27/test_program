@@ -1,0 +1,84 @@
+<script>
+    function enableProblemDiv(thisObj) {
+        $(thisObj).hide();
+        $(thisObj).parent().parent().parent().parent().parent().children('.problemDiv').show();
+        return false;
+    }
+    var count = 0;
+    function renderPartial(thisObj,i){
+
+        $(thisObj).parent().parent().parent().append("<%= j  render partial: 'create_project/add_problem', :locals => {:i=> " + i +"}%>");
+        $('.renderPartial').removeClass();
+        $(thisObj).parent().parent().parent().append("<div class='renderPartial'></div>");
+        return false
+    }
+</script>
+<%= form_tag url_for("/create_project/create") do %>
+    <table>
+      <caption><strong>Create Project</strong></caption>
+      <br>
+      <br>
+      <tr>
+        <td>
+          Title:
+        </td>
+        <td>
+          <%= text_field_tag "title","" %>
+        </td>
+        <td>
+          Description:
+        </td>
+        <td>
+          <%= text_field_tag "descrip","" %>
+        </td>
+
+      </tr>
+      <tr>
+        <td>
+          Duration:
+        </td>
+        <td>
+          <%= text_field_tag "duration" %>
+        </td>
+        <td>
+          Price:
+        </td>
+        <td>
+          <%= text_field_tag "price" %>
+        </td>
+
+      </tr>
+      <tr>
+        <td>
+          Category:
+        </td>
+
+        <td>
+          <%= select_tag "proc_status", options_for_select(["MassAssignment", "Specialist"]), :prompt => "--Select--" %>
+        </td>
+
+      </tr>
+      <tr>
+        <td>
+
+        <%= button_tag "Create", :class => "btn btn-info btn-small", onclick: "return enableProblemDiv(this);" %>
+        </td>
+      </tr>
+    </table>
+      <table class="problemDiv" hidden>
+        <%i=0%>
+        <tr>
+          <td>
+            <%= link_to 'Add Problem',"#", onclick: "return renderPartial(this,#{i+1})"%>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <%= submit_tag "submit", :class => "btn btn-info btn-small" %></td>
+        </tr>
+        <div class="renderPartial">
+
+        </div>
+      </table>
+<% end %>
+

@@ -1,0 +1,51 @@
+<%= form_tag url_for("/create_project/create") do %>
+    <table>
+      <caption><strong>Waiting For QA</strong></caption>
+      <br>
+      <br>
+
+
+      <th>
+        Project Details
+      </th>
+      <th>
+        Description
+      </th>
+      <th>
+        Category
+      </th>
+      <th>
+        Amount
+      </th>
+      <th>
+        Duration
+      </th>
+
+
+      <% @projects.each do |project| %>
+          <tr>
+            <td>
+              <%= project.title%>
+            </td>
+
+            <td>
+              <%= project.description%>
+            </td>
+
+            <td>
+              <%= project.category%>
+            </td>
+            <td>
+              <%= number_to_currency(project.amount.to_f.round(2), unit: "\u20b9") %>
+            </td>
+            <td>
+              <%= project.duration%>
+            </td>
+          </tr>
+
+      <% end %>
+
+
+    </table>
+<% end %>
+
